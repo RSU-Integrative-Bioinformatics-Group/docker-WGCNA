@@ -2,12 +2,14 @@
 
 A Dockerized environment for performing **Weighted Gene Co-expression Network Analysis (WGCNA)** in R. This container includes all necessary dependencies, a demo R Markdown pipeline, and support for custom datasets via volume mounts.
 
+![WGCNA schema](https://raw.githubusercontent.com/NebulaKit/docker-WGCNA/main/wgcna_schema.png)
+
 ---
 
 ## 📦 Pull the Docker Image
 
 ```bash
-docker pull kristinagrausa/wgcna-env:latest
+docker pull rsubioinfogroup/wgcna:latest
 ```
 
 
@@ -15,12 +17,12 @@ docker pull kristinagrausa/wgcna-env:latest
 
 Start an interactive R session:
 ```bash
-docker run -it kristinagrausa/wgcna-env
+docker run -it rsubioinfogroup/wgcna:latest
 ```
 
 Start with volume mount (necessary for using your own data):
 ```bash
-docker run -it -v /path/to/your/local/folder:/home/data kristinagrausa/wgcna-env
+docker run -it -v /path/to/your/local/folder:/home/data rsubioinfogroup/wgcna:latest
 ```
 Replace /path/to/your/local/folder with your actual local directory path.
 On Windows, use a path like:
@@ -65,34 +67,9 @@ rmarkdown::render("WGCNA.Rmd",
 )
 ```
 
-## 🧾 Retrieve Output Files
-If you saved your results inside /home/data, and that folder is volume-mounted, your results will be directly available in your local system.
-
-If not, follow these steps:
-
-1. Get the container ID or name:
-```bash
-docker ps
-```
-
-2. Copy files from the container to your host machine:
-
-```bash
-docker cp <container_name_or_id>:/home/output_file.html /path/to/local/folder/
-docker cp <container_name_or_id>:/home/any_other_file.csv /path/to/local/folder/
-```
-
 ## 🧠 Notes
 Use volume mounts to load your own datasets and save outputs to your local drive.
 
 All key WGCNA parameters (e.g., soft thresholding, module size, merge height) can be adjusted via the params argument in rmarkdown::render().
 
 Output HTML reports and results tables are automatically generated.
-
-## 👩‍🔬 Author
-Kristīna Grausa, MSc
-Researcher – Bioinformatics Group
-Riga Stradiņš University
-
-## 📄 License
-MIT License (or your preferred open-source license)
